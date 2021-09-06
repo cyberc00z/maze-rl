@@ -8,9 +8,9 @@ else:
     import tkinter as tk
 
 
-UNIT = 40  #pixels
-MAZE_H = 4  # grid height
-MAZE_W = 4  # grid width
+UNIT = 60  #pixels
+MAZE_H = 10  # grid height
+MAZE_W = 10  # grid width
 
 class Maze(tk.Tk, object):
     def __init__(self):
@@ -77,17 +77,17 @@ class Maze(tk.Tk, object):
         return self.canvas.coords(self.rect)
     def step(self, action):
         s = self.canvas.coords(self.rect)
-        bnse_action = np.array([0, 0])
-        if action == int(0):
+        base_action = np.array([0, 0])
+        if (action == 0).any():
             if s[1] > UNIT:
                 base_action[1] -= UNIT
-        elif action == int(1):
+        elif action == 1:
             if s[1] < (MAZE_H -1) * UNIT:
                 base_action[1] += UNIT
-        elif action == int(2):
+        elif action == 2:
             if s[0]< (MAZE_W -1) *UNIT:
                 base_action[0] += UNIT
-        elif action == int(3):
+        elif action == 3:
             if s[0] > UNIT:
                 base_action[0] -= UNIT
 

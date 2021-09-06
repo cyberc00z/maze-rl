@@ -1,5 +1,5 @@
 """
-check if state_exists:
+check if state_exist:
     take_actions
 
 
@@ -55,7 +55,7 @@ class QLearningTable(RL):
         super(QLearningTable, self).__init__(actions,learning_rate, reward_decay, e_greedy )
 
     def learn(self, s, a, r, s_):
-        self.check_state_exists(s_)
+        self.check_state_exist(s_)
         q_predict = self.q_table.loc[s, a]
         if s_ != 'terminal':
             q_target = r + self.gamma * self.q_table.loc[s_,:].max()  #next state is not terminal
@@ -68,10 +68,11 @@ class SarsaTable(RL):
         super(SarsaTable, self).__init__(actions, learning_rate, reward_decay, e_greedy)
 
     def learn(self, s, a, r, s_, a_):
-        self.check_state_exists(s_)
-        q_predict = self.q_target.loc[s, a]
+        self.check_state_exist(s_)
+        q_predict = self.q_table.loc[s, a]
         if s_ != 'terminal':
-            q_target = r+ self.gamma * self.q_table.loc[s_, a_]
+            q_target = r + self.gamma * self.q_table.loc[s_, a_]
         else:
             q_target = r
-        self.q_table.loc[s, a] += self.lr * (q_target - q_predict)
+        
+        self.q_table.loc[s, a] +=  self.lr * (q_target - q_predict)
